@@ -31,10 +31,10 @@ namespace Databasekopple.Data
             _connection.Insert(run);
         }
 
-        public void Delete (int id)
-        { 
+        public void Delete(int id)
+        {
             _connection = new SQLiteConnection(_dbPath);
-            _connection.Delete(new { Id = id });
+            _connection.Delete<Run>(id); // Use Delete<T> directly with the Id
         }
     }
 }

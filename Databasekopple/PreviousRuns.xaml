@@ -25,11 +25,12 @@
                             <Label Grid.Column="3" Text="{Binding Duration}"/>
                             <Label Grid.Column="4" Text="{Binding SpeedInKilometers}"/>
                             <Label Grid.Column="5" Text="{Binding BurnedKilocalories}"/>
-                            <Button Grid.Column="6" Text="Delete" BindingContext="{Binding Id}"/>
+                            <Button Grid.Column="6" Text="Delete" Clicked="OnDelete" BindingContext="{Binding Id}"/>
                         </Grid>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>
+            <Button Clicked="OnClickNewRun" Text="New run"></Button>
         </VerticalStackLayout>
     </ScrollView>
 </ContentPage>

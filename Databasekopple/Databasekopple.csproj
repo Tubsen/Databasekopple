@@ -55,10 +55,16 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <Compile Update="NewRun.xaml.cs">
+	    <DependentUpon>NewRun.xaml</DependentUpon>
+	  </Compile>
+	</ItemGroup>
+
+	<ItemGroup>
 	  <MauiXaml Update="PreviousRuns.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Run.xaml">
+	  <MauiXaml Update="NewRun.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	</ItemGroup>

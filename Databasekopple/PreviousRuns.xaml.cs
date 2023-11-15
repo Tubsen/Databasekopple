@@ -17,4 +17,9 @@ public partial class PreviousRuns : ContentPage
 
 		runsList.ItemsSource = App.RunRepository.GetAllRuns();
 	}
+
+	async private void OnClickNewRun(object sender, EventArgs e)
+	{
+        await Navigation.PushAsync(new NewRun());
+    }
 }
