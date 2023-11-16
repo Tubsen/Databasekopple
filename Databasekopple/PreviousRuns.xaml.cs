@@ -1,15 +1,24 @@
+using Databasekopple.Data;
+
 namespace Databasekopple;
 
 public partial class PreviousRuns : ContentPage
 {
-	public PreviousRuns()
-	{
-		InitializeComponent();
+    public PreviousRuns()
+    {
+        InitializeComponent();
 
-		runsList.ItemsSource = App.RunRepository.GetAllRuns();
-	}
+        //runsList.ItemsSource = App.RunRepository.GetAllRuns();
 
-	private void OnDelete(object sender, EventArgs e)
+        var allSessions = App.RunRepository.GetAllRuns(); // Vervang dit door de juiste methode
+
+        // Sorteer de sessies op datum, waarbij de meest recente bovenaan staat
+        var sortedSessions = allSessions.OrderByDescending(s => s.Date);
+
+        runsList.ItemsSource = sortedSessions;
+    }
+
+    private void OnDelete(object sender, EventArgs e)
 	{
 		Button button = (Button)sender;
 
@@ -21,5 +30,15 @@ public partial class PreviousRuns : ContentPage
 	async private void OnClickNewRun(object sender, EventArgs e)
 	{
         await Navigation.PushAsync(new NewRun());
+    }
+
+    private void OnClickRefresh(object sender, EventArgs e)
+    {
+        var allSessions = App.RunRepository.GetAllRuns();
+
+        // Sorteer de sessies op datum, waarbij de meest recente bovenaan staat
+        var sortedSessions = allSessions.OrderByDescending(s => s.Date);
+
+        runsList.ItemsSource = sortedSessions;
     }
 }

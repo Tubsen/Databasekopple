@@ -7,7 +7,7 @@ namespace Databasekopple.Models
     {
         [PrimaryKey, AutoIncrement, Column("Id")]
         public int Id { get; set; }
-        public DateTime Date { get; set; } // Date
+        public string Date { get; set; } // Date
         public TimeSpan StartTime { get; set; } // StartTime
         public double DistanceInKilometers { get; set; } // Distance in kilometers
         public TimeSpan Duration { get; set; } // Duration (hh:mm:ss)
