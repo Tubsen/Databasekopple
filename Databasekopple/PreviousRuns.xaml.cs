@@ -1,4 +1,5 @@
 using Databasekopple.Data;
+using Databasekopple.ViewModels;
 
 namespace Databasekopple;
 
@@ -16,6 +17,32 @@ public partial class PreviousRuns : ContentPage
         var sortedSessions = allSessions.OrderByDescending(s => s.Date);
 
         runsList.ItemsSource = sortedSessions;
+
+        
+    }
+
+    public void LoadRuns()
+    {
+        // Load runs from the repository
+        var runsList = App.RunRepository.GetAllRuns();
+
+        // Determine the run with the longest duration
+        var longestDurationRun = runsList.OrderByDescending(r => r.Duration).FirstOrDefault();
+
+        // Determine the run with the longest distance
+        var longestDistanceRun = runsList.OrderByDescending(r => r.DistanceInKilometers).FirstOrDefault();
+
+        // Determine the run with the most calories burned
+        var mostCaloriesRun = runsList.OrderByDescending(r => r.BurnedKilocalories).FirstOrDefault();
+
+        // Determine the run with the highest speed
+        var highestSpeedRun = runsList.OrderByDescending(r => r.SpeedInKilometers).FirstOrDefault();
+
+        longestDistanceRun.IsLongestDistance = true;
+        longestDurationRun.IsLongestDuration = true;
+        mostCaloriesRun.HasMostCalories = true;
+        highestSpeedRun.HasHighestSpeed = true;
+
     }
 
     private void OnDelete(object sender, EventArgs e)
@@ -40,5 +67,6 @@ public partial class PreviousRuns : ContentPage
         var sortedSessions = allSessions.OrderByDescending(s => s.Date);
 
         runsList.ItemsSource = sortedSessions;
+        LoadRuns();
     }
 }

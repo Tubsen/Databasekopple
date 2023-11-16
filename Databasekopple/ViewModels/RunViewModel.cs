@@ -1,5 +1,6 @@
 ﻿using Databasekopple.Data;
 using Databasekopple.Models;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows.Input;
@@ -13,12 +14,69 @@ namespace Databasekopple.ViewModels
 
         public Run RunSession { get; private set; }
 
+        private ObservableCollection<Run> _runsList;
+        public ObservableCollection<Run> RunsList
+        {
+            get { return _runsList; }
+            set
+            {
+                if (_runsList != value)
+                {
+                    _runsList = value;
+                    NotifyPropertyChanged(nameof(RunsList));
+                }
+            }
+        }
 
         private DateTime _date;
         public DateTime Date
         {
             get => _date.Date;  // Retrieve only the date part
             set => _date = value.Date;  // Store only the date part
+        }
+
+        private bool _isLongestDuration;
+        public bool IsLongestDuration
+        {
+            get => _isLongestDuration;
+            set
+            {
+                _isLongestDuration = value;
+                NotifyPropertyChanged(nameof(IsLongestDuration));
+            }
+        }
+
+        private bool _isLongestDistance;
+        public bool IsLongestDistance
+        {
+            get => _isLongestDistance;
+            set
+            {
+                _isLongestDistance = value;
+                NotifyPropertyChanged(nameof(IsLongestDistance));
+            }
+        }
+
+        private bool _hasMostCalories;
+        public bool HasMostCalories
+        {
+            get => _hasMostCalories;
+            set
+            {
+                _hasMostCalories = value;
+                NotifyPropertyChanged(nameof(HasMostCalories));
+            }
+        }
+
+        private bool _hasHighestSpeed;
+        public bool HasHighestSpeed
+        {
+            get => _hasHighestSpeed;
+            set
+            {
+                _hasHighestSpeed = value;
+                NotifyPropertyChanged(nameof(HasHighestSpeed));
+            }
         }
 
         private int? _hoursStartTime;
@@ -209,6 +267,7 @@ namespace Databasekopple.ViewModels
         {
             _navigation = navigation;
             SaveCommand = new Command(CreateRunSession);
+
             _runRepository = new RunRepository("/data/user/0/com.companyname.databasekopple/files/run.db");
             Date = DateTime.Now;
 
@@ -241,8 +300,8 @@ namespace Databasekopple.ViewModels
                 BurnedKilocalories = (int)Kilocalories,
             };
             _runRepository.Add(RunSession);
-
             await _navigation.PopAsync();
+
         }
 
 

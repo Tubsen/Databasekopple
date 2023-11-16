@@ -1,7 +1,7 @@
 ﻿using SQLite;
 
 namespace Databasekopple.Models
-{        
+{
     [Table("run")]
     public class Run
     {
@@ -13,6 +13,12 @@ namespace Databasekopple.Models
         public TimeSpan Duration { get; set; } // Duration (hh:mm:ss)
         public double SpeedInKilometers { get; set; } // Speed in km/h
         public double BurnedKilocalories { get; set; } // Burned Kilocalories
+
+        // Badge properties
+        public bool IsLongestDuration { get; set; }
+        public bool IsLongestDistance { get; set; }
+        public bool HasMostCalories { get; set; }
+        public bool HasHighestSpeed { get; set; }
 
     }
 }
