@@ -44,6 +44,7 @@
                                 <ColumnDefinition Width="2*"/>
                                 <ColumnDefinition Width="1*"/>
                                 <ColumnDefinition Width="3*"/>
+                                <ColumnDefinition Width="1*"/>
                             </Grid.ColumnDefinitions>
 
 
@@ -53,7 +54,11 @@
                             <Label Grid.Column="3" VerticalTextAlignment="Center" WidthRequest="75" Text="{Binding Duration}"/>
                             <Label Grid.Column="4" VerticalTextAlignment="Center" WidthRequest="40" Text="{Binding SpeedInKilometers}"/>
                             <Label Grid.Column="5" VerticalTextAlignment="Center" WidthRequest="40" Text="{Binding BurnedKilocalories}"/>
-                            <Button Grid.Column="6" Text="X" WidthRequest="40" HeightRequest="40"  Clicked="OnDelete" BindingContext="{Binding Id}"/>
+                            <Image Grid.Column="6" Source="longesttime.png" WidthRequest="30" HeightRequest="30" IsVisible="true" />
+                            <Image Grid.Column="6" Source="longestdistence.png" WidthRequest="30" HeightRequest="30" IsVisible="true" />
+                            <Image Grid.Column="6" Source="heigestspeed.png" WidthRequest="30" HeightRequest="30" IsVisible="true" />
+                            <Image Grid.Column="6" Source="mostcal.png" WidthRequest="30" HeightRequest="30" IsVisible="true" />
+                            <Button Grid.Column="7" Text="X" WidthRequest="40" HeightRequest="40"  Clicked="OnDelete" BindingContext="{Binding Id}"/>
                         </Grid>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>

@@ -1,5 +1,6 @@
 ﻿using Databasekopple.Data;
 using Databasekopple.Models;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows.Input;
@@ -13,6 +14,19 @@ namespace Databasekopple.ViewModels
 
         public Run RunSession { get; private set; }
 
+        private ObservableCollection<Run> _runsList;
+        public ObservableCollection<Run> RunsList
+        {
+            get { return _runsList; }
+            set
+            {
+                if (_runsList != value)
+                {
+                    _runsList = value;
+                    NotifyPropertyChanged(nameof(RunsList));
+                }
+            }
+        }
 
         private DateTime _date;
         public DateTime Date
@@ -21,7 +35,66 @@ namespace Databasekopple.ViewModels
             set => _date = value.Date;  // Store only the date part
         }
 
+        // Represents whether the activity has the longest duration
+        private bool _isLongestDuration;
+
+        // Property for accessing and updating the IsLongestDuration field
+        public bool IsLongestDuration
+        {
+            get => _isLongestDuration;
+            set
+            {
+                _isLongestDuration = value;
+                NotifyPropertyChanged(nameof(IsLongestDuration));
+            }
+        }
+
+        // Represents whether the activity has the longest distance
+        private bool _isLongestDistance;
+
+        // Property for accessing and updating the IsLongestDistance field
+        public bool IsLongestDistance
+        {
+            get => _isLongestDistance;
+            set
+            {
+                _isLongestDistance = value;
+                NotifyPropertyChanged(nameof(IsLongestDistance));
+            }
+        }
+
+        // Represents whether the activity has the most calories burned
+        private bool _hasMostCalories;
+
+        // Property for accessing and updating the HasMostCalories field
+        public bool HasMostCalories
+        {
+            get => _hasMostCalories;
+            set
+            {
+                _hasMostCalories = value;
+                NotifyPropertyChanged(nameof(HasMostCalories));
+            }
+        }
+
+        // Represents whether the activity has the highest speed
+        private bool _hasHighestSpeed;
+
+        // Property for accessing and updating the HasHighestSpeed field
+        public bool HasHighestSpeed
+        {
+            get => _hasHighestSpeed;
+            set
+            {
+                _hasHighestSpeed = value;
+                NotifyPropertyChanged(nameof(HasHighestSpeed));
+            }
+        }
+
+        // Represents the hours part of the activity start time
         private int? _hoursStartTime;
+
+        // Property for accessing and updating the HoursStartTime field with validation
         public int? HoursStartTime
         {
             get => _hoursStartTime;
@@ -40,7 +113,10 @@ namespace Databasekopple.ViewModels
             }
         }
 
+        // Represents the minutes part of the activity start time
         private int? _minutesStartTime;
+
+        // Property for accessing and updating the MinutesStartTime field with validation
         public int? MinutesStartTime
         {
             get => _minutesStartTime;
@@ -59,7 +135,10 @@ namespace Databasekopple.ViewModels
             }
         }
 
+        // Represents the seconds part of the activity start time
         private int? _secondsStartTime;
+
+        // Property for accessing and updating the SecondsStartTime field with validation
         public int? SecondsStartTime
         {
             get => _secondsStartTime;
@@ -78,7 +157,10 @@ namespace Databasekopple.ViewModels
             }
         }
 
+        // Represents the distance traveled in kilometers
         private int? _kilometers;
+
+        // Property for accessing and updating the Kilometers field with validation
         public int? Kilometers
         {
             get => _kilometers;
@@ -97,7 +179,10 @@ namespace Databasekopple.ViewModels
             }
         }
 
+        // Represents the hours part of the activity duration
         private int? _hoursLength;
+
+        // Property for accessing and updating the HoursLength field with validation
         public int? HoursLength
         {
             get => _hoursLength;
@@ -116,7 +201,10 @@ namespace Databasekopple.ViewModels
             }
         }
 
+        // Represents the minutes part of the activity duration
         private int? _minutesLength;
+
+        // Property for accessing and updating the MinutesLength field with validation
         public int? MinutesLength
         {
             get => _minutesLength;
@@ -135,7 +223,10 @@ namespace Databasekopple.ViewModels
             }
         }
 
+        // Represents the seconds part of the activity duration
         private int? _secondsLength;
+
+        // Property for accessing and updating the SecondsLength field with validation
         public int? SecondsLength
         {
             get => _secondsLength;
@@ -154,7 +245,10 @@ namespace Databasekopple.ViewModels
             }
         }
 
+        // Represents the speed of the activity in kilometers per hour
         private int? _speedInKilometers;
+
+        // Property for accessing and updating the SpeedInKilometers field with validation
         public int? SpeedInKilometers
         {
             get => _speedInKilometers;
@@ -173,7 +267,10 @@ namespace Databasekopple.ViewModels
             }
         }
 
+        // Represents the number of kilocalories burned during the activity
         private int? _kilocalories;
+
+        // Property for accessing and updating the Kilocalories field with validation
         public int? Kilocalories
         {
             get => _kilocalories;
@@ -192,7 +289,10 @@ namespace Databasekopple.ViewModels
             }
         }
 
+        // Represents any error message related to the activity input
         private string _errorMessage;
+
+        // Property for accessing and updating the ErrorMessage field
         public string ErrorMessage
         {
             get => _errorMessage;
@@ -203,34 +303,41 @@ namespace Databasekopple.ViewModels
             }
         }
 
+
+        // Command to save the run session
         public ICommand SaveCommand { get; private set; }
 
+        // Constructor to initialize the ViewModel
         public RunViewModel(INavigation navigation)
         {
             _navigation = navigation;
             SaveCommand = new Command(CreateRunSession);
-            _runRepository = new RunRepository("/data/user/0/com.companyname.databasekopple/files/run.db");
-            Date = DateTime.Now;
 
+            // Initialize the RunRepository with the database path
+            _runRepository = new RunRepository("/data/user/0/com.companyname.databasekopple/files/run.db");
+            Date = DateTime.Now; // Set the default date to the current date and time
         }
 
+        // Method to create a new run session
         public async void CreateRunSession(object parameter)
         {
-            // Checks if all the fields are filled
+            // Check if all required fields are filled
             if (HoursStartTime == null || MinutesStartTime == null || SecondsStartTime == null ||
                 HoursLength == null || MinutesLength == null || SecondsLength == null ||
                 Kilometers == null || SpeedInKilometers == null || Kilocalories == null)
             {
-                ErrorMessage = "Alles moet ingevuld worden";
-                return;
+                ErrorMessage = "All fields must be filled."; // Set an error message
+                return; // Exit the method if validation fails
             }
 
+            // Create TimeSpan objects for start time and run duration
             TimeSpan startTime = new TimeSpan((int)HoursStartTime, (int)MinutesStartTime, (int)SecondsStartTime);
             TimeSpan timeLength = new TimeSpan((int)HoursLength, (int)MinutesLength, (int)SecondsLength);
 
+            // Format the date as dd/MM/yyyy
             string formattedDate = Date.ToString("dd/MM/yyyy");
 
-
+            // Create a new Run object with the provided details
             RunSession = new Run
             {
                 Date = formattedDate,
@@ -240,13 +347,18 @@ namespace Databasekopple.ViewModels
                 SpeedInKilometers = (int)SpeedInKilometers,
                 BurnedKilocalories = (int)Kilocalories,
             };
+
+            // Add the run session to the repository
             _runRepository.Add(RunSession);
 
+            // Navigate back after saving
             await _navigation.PopAsync();
         }
 
-
+        // Event to notify changes in property values
         public event PropertyChangedEventHandler PropertyChanged;
+
+        // Method to invoke PropertyChanged event
         private void NotifyPropertyChanged([CallerMemberName] String propertyName = "")
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
