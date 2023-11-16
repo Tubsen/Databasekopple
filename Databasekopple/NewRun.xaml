@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:Databasekopple.ViewModels">
     <StackLayout>
         <Label Text="Date" />
-        <DatePicker Date="{Binding Date, Mode=TwoWay}" />
+        <DatePicker x:Name="datePicker" Date="{Binding Date, Mode=TwoWay}" />
 
         <Label Text="Start Time" />
         <StackLayout Orientation="Horizontal">

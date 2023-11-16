@@ -209,8 +209,9 @@ namespace Databasekopple.ViewModels
         {
             _navigation = navigation;
             SaveCommand = new Command(CreateRunSession);
-            _runRepository = new RunRepository("C:\\Users\\tobia\\AppData\\Local\\Packages\\457c8ff2-537c-4b17-8f38-bd921a85bbbf_9zz4h110yvjzm\\LocalState\\run.db");
+            _runRepository = new RunRepository("/data/user/0/com.companyname.databasekopple/files/run.db");
             Date = DateTime.Now;
+
         }
 
         public async void CreateRunSession(object parameter)
@@ -227,9 +228,12 @@ namespace Databasekopple.ViewModels
             TimeSpan startTime = new TimeSpan((int)HoursStartTime, (int)MinutesStartTime, (int)SecondsStartTime);
             TimeSpan timeLength = new TimeSpan((int)HoursLength, (int)MinutesLength, (int)SecondsLength);
 
+            string formattedDate = Date.ToString("dd/MM/yyyy");
+
+
             RunSession = new Run
             {
-                Date = Date,
+                Date = formattedDate,
                 StartTime = startTime,
                 DistanceInKilometers = (int)Kilometers,
                 Duration = timeLength,

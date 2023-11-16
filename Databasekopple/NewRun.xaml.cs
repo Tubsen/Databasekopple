@@ -11,5 +11,7 @@ public partial class NewRun : ContentPage
         InitializeComponent();
         ViewModel = new RunViewModel(Navigation);
         BindingContext = ViewModel;
+
+        datePicker.MaximumDate = DateTime.Now;
     }
 }

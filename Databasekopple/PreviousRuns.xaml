@@ -6,35 +6,60 @@
     <ScrollView>
         <VerticalStackLayout>
             <CollectionView x:Name="runsList">
+                <CollectionView.Header>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="35"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="3*"/>
+                            <ColumnDefinition Width="3*"/>
+                            <ColumnDefinition Width="1.5*"/>
+                            <ColumnDefinition Width="2*"/>
+                            <ColumnDefinition Width="1.8*"/>
+                            <ColumnDefinition Width="1.5*"/>
+                            <ColumnDefinition Width="1.8*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Label Grid.Column="0" Text="Datum" FontAttributes="Bold" VerticalTextAlignment="Center"/>
+                        <Label Grid.Column="1" Text="Start tijd" FontAttributes="Bold" VerticalTextAlignment="Center"/>
+                        <Label Grid.Column="2" Text="KM"  FontAttributes="Bold" VerticalTextAlignment="Center"/>
+                        <Label Grid.Column="3" Text="Duur" FontAttributes="Bold" VerticalTextAlignment="Center"/>
+                        <Label Grid.Column="4" Text="KM/U" FontAttributes="Bold" VerticalTextAlignment="Center"/>
+                        <Label Grid.Column="5" Text="Kcal" FontAttributes="Bold" VerticalTextAlignment="Center"/>
+                        <Label Grid.Column="6" Text="Actie" FontAttributes="Bold" VerticalTextAlignment="Center"/>
+                    </Grid>
+                </CollectionView.Header>
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
                         <Grid>
                             <Grid.RowDefinitions>
-                                <RowDefinition Height="35"/>
+                                <RowDefinition Height="45"/>
                             </Grid.RowDefinitions>
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="2*"/>
-                                <ColumnDefinition Width="2*"/>
-                                <ColumnDefinition Width="2*"/>
-                                <ColumnDefinition Width="2*"/>
-                                <ColumnDefinition Width="2*"/>
-                                <ColumnDefinition Width="2*"/>
+                                <ColumnDefinition Width="4*"/>
+                                <ColumnDefinition Width="4*"/>
                                 <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="4*"/>
+                                <ColumnDefinition Width="2*"/>
+                                <ColumnDefinition Width="1*"/>
+                                <ColumnDefinition Width="3*"/>
                             </Grid.ColumnDefinitions>
 
-                            <Label Grid.Column="0" Text="hoi"/>
-                            <Label Grid.Column="1" Text="{Binding StartTime}"/>
-                            <Label Grid.Column="2" Text="{Binding DistanceInKilometers}"/>
-                            <Label Grid.Column="3" Text="{Binding Duration}"/>
-                            <Label Grid.Column="4" Text="{Binding SpeedInKilometers}"/>
-                            <Label Grid.Column="5" Text="{Binding BurnedKilocalories}"/>
-                            <Button Grid.Column="6" Text="Delete" Clicked="OnDelete" BindingContext="{Binding Id}"/>
+
+                            <Label Grid.Column="0" VerticalTextAlignment="Center" WidthRequest="75" Text="{Binding Date}"/>
+                            <Label Grid.Column="1" VerticalTextAlignment="Center" WidthRequest="80" Text="{Binding StartTime}"/>
+                            <Label Grid.Column="2" VerticalTextAlignment="Center" WidthRequest="20" Text="{Binding DistanceInKilometers}"/>
+                            <Label Grid.Column="3" VerticalTextAlignment="Center" WidthRequest="75" Text="{Binding Duration}"/>
+                            <Label Grid.Column="4" VerticalTextAlignment="Center" WidthRequest="40" Text="{Binding SpeedInKilometers}"/>
+                            <Label Grid.Column="5" VerticalTextAlignment="Center" WidthRequest="40" Text="{Binding BurnedKilocalories}"/>
+                            <Button Grid.Column="6" Text="X" WidthRequest="40" HeightRequest="40"  Clicked="OnDelete" BindingContext="{Binding Id}"/>
                         </Grid>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>
-            <Button Clicked="OnClickNewRun" Text="New run"></Button>
-            <Button Clicked="OnClickRefresh" Text="Refresh"></Button>
+            <Button Clicked="OnClickNewRun" Text="New run" Margin="30,5"></Button>
+            <Button Clicked="OnClickRefresh" Text="Refresh" Margin="30,5"></Button>
         </VerticalStackLayout>
     </ScrollView>
 </ContentPage>

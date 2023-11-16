@@ -4,16 +4,21 @@ namespace Databasekopple;
 
 public partial class PreviousRuns : ContentPage
 {
-
-    private RunRepository _runRepository;
     public PreviousRuns()
-	{
-		InitializeComponent();
+    {
+        InitializeComponent();
 
-		runsList.ItemsSource = App.RunRepository.GetAllRuns();
-	}
+        //runsList.ItemsSource = App.RunRepository.GetAllRuns();
 
-	private void OnDelete(object sender, EventArgs e)
+        var allSessions = App.RunRepository.GetAllRuns(); // Vervang dit door de juiste methode
+
+        // Sorteer de sessies op datum, waarbij de meest recente bovenaan staat
+        var sortedSessions = allSessions.OrderByDescending(s => s.Date);
+
+        runsList.ItemsSource = sortedSessions;
+    }
+
+    private void OnDelete(object sender, EventArgs e)
 	{
 		Button button = (Button)sender;
 
@@ -29,7 +34,11 @@ public partial class PreviousRuns : ContentPage
 
     private void OnClickRefresh(object sender, EventArgs e)
     {
-        _runRepository = new RunRepository("C:\\Users\\tobia\\AppData\\Local\\Packages\\457c8ff2-537c-4b17-8f38-bd921a85bbbf_9zz4h110yvjzm\\LocalState\\run.db");
-		_runRepository.GetAllRuns();
+        var allSessions = App.RunRepository.GetAllRuns();
+
+        // Sorteer de sessies op datum, waarbij de meest recente bovenaan staat
+        var sortedSessions = allSessions.OrderByDescending(s => s.Date);
+
+        runsList.ItemsSource = sortedSessions;
     }
 }
