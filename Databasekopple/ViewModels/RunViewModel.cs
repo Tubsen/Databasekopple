@@ -1,11 +1,19 @@
-﻿using Databasekopple.Models;
+﻿using Databasekopple.Data;
+using Databasekopple.Models;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using System.Windows.Input;
 
 namespace Databasekopple.ViewModels
 {
     public class RunViewModel : INotifyPropertyChanged
     {
+        private RunRepository _runRepository;
+        private readonly INavigation _navigation;
+
+        public Run RunSession { get; private set; }
+
+
         private DateTime _date;
         public DateTime Date
         {
@@ -195,12 +203,17 @@ namespace Databasekopple.ViewModels
             }
         }
 
-        public RunViewModel()
+        public ICommand SaveCommand { get; private set; }
+
+        public RunViewModel(INavigation navigation)
         {
+            _navigation = navigation;
+            SaveCommand = new Command(CreateRunSession);
+            _runRepository = new RunRepository("C:\\Users\\tobia\\AppData\\Local\\Packages\\457c8ff2-537c-4b17-8f38-bd921a85bbbf_9zz4h110yvjzm\\LocalState\\run.db");
             Date = DateTime.Now;
         }
 
-        public Run CreateRunSession()
+        public async void CreateRunSession(object parameter)
         {
             // Checks if all the fields are filled
             if (HoursStartTime == null || MinutesStartTime == null || SecondsStartTime == null ||
@@ -208,13 +221,13 @@ namespace Databasekopple.ViewModels
                 Kilometers == null || SpeedInKilometers == null || Kilocalories == null)
             {
                 ErrorMessage = "Alles moet ingevuld worden";
-                return null;
+                return;
             }
 
             TimeSpan startTime = new TimeSpan((int)HoursStartTime, (int)MinutesStartTime, (int)SecondsStartTime);
             TimeSpan timeLength = new TimeSpan((int)HoursLength, (int)MinutesLength, (int)SecondsLength);
 
-            Run runSession = new Run
+            RunSession = new Run
             {
                 Date = Date,
                 StartTime = startTime,
@@ -223,9 +236,11 @@ namespace Databasekopple.ViewModels
                 SpeedInKilometers = (int)SpeedInKilometers,
                 BurnedKilocalories = (int)Kilocalories,
             };
+            _runRepository.Add(RunSession);
 
-            return runSession;
+            await _navigation.PopAsync();
         }
+
 
         public event PropertyChangedEventHandler PropertyChanged;
         private void NotifyPropertyChanged([CallerMemberName] String propertyName = "")

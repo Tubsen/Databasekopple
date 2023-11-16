@@ -16,10 +16,13 @@
                                 <ColumnDefinition Width="2*"/>
                                 <ColumnDefinition Width="2*"/>
                                 <ColumnDefinition Width="2*"/>
+                                <ColumnDefinition Width="2*"/>
+                                <ColumnDefinition Width="2*"/>
+                                <ColumnDefinition Width="2*"/>
                                 <ColumnDefinition Width="*"/>
                             </Grid.ColumnDefinitions>
 
-                            <Label Grid.Column="0" Text="{Binding Date}"/>
+                            <Label Grid.Column="0" Text="hoi"/>
                             <Label Grid.Column="1" Text="{Binding StartTime}"/>
                             <Label Grid.Column="2" Text="{Binding DistanceInKilometers}"/>
                             <Label Grid.Column="3" Text="{Binding Duration}"/>
@@ -31,6 +34,7 @@
                 </CollectionView.ItemTemplate>
             </CollectionView>
             <Button Clicked="OnClickNewRun" Text="New run"></Button>
+            <Button Clicked="OnClickRefresh" Text="Refresh"></Button>
         </VerticalStackLayout>
     </ScrollView>
 </ContentPage>

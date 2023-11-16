@@ -4,9 +4,6 @@
              x:Class="Databasekopple.NewRun"
              Title="NiRun"
              xmlns:local="clr-namespace:Databasekopple.ViewModels">
-    <ContentPage.BindingContext>
-        <local:RunViewModel />
-    </ContentPage.BindingContext>
     <StackLayout>
         <Label Text="Date" />
         <DatePicker Date="{Binding Date, Mode=TwoWay}" />
@@ -35,6 +32,6 @@
         <Entry Keyboard="Numeric" Text="{Binding Kilocalories, Mode=TwoWay}" />
 
         <Label Text="{Binding ErrorMessage}" TextColor="Red" />
-        <Button Text="Save" Command="{Binding Path=BindingContext.CreateRunSession, Source={x:Reference Name=NewRunPage}}" />
+        <Button Text="Save" Command="{Binding SaveCommand}" />
     </StackLayout>
 </ContentPage>

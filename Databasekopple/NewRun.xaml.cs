@@ -4,9 +4,12 @@ namespace Databasekopple;
 
 public partial class NewRun : ContentPage
 {
-	public NewRun()
-	{
-		InitializeComponent();
-        BindingContext = new RunViewModel();
+    public RunViewModel ViewModel { get; set; }
+
+    public NewRun()
+    {
+        InitializeComponent();
+        ViewModel = new RunViewModel(Navigation);
+        BindingContext = ViewModel;
     }
 }
