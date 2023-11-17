@@ -15,9 +15,13 @@ namespace Databasekopple.Models
         public double BurnedKilocalories { get; set; } // Burned Kilocalories
 
         // Badge properties
+        [Ignore]
         public bool IsLongestDuration { get; set; }
+        [Ignore]
         public bool IsLongestDistance { get; set; }
+        [Ignore]
         public bool HasMostCalories { get; set; }
+        [Ignore]
         public bool HasHighestSpeed { get; set; }
 
     }
