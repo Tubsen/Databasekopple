@@ -318,6 +318,16 @@ namespace Databasekopple.ViewModels
             Date = DateTime.Now; // Set the default date to the current date and time
         }
 
+        public RunViewModel(INavigation navigation, Run run)
+        {
+            _navigation = navigation;
+            SaveCommand = new Command(CreateRunSession);
+
+            // Initialize the RunRepository with the database path
+            _runRepository = new RunRepository("/data/user/0/com.companyname.databasekopple/files/run.db");
+            Date = DateTime.Now; // Set the default date to the current date and time
+        }
+
         // Method to create a new run session
         public async void CreateRunSession(object parameter)
         {

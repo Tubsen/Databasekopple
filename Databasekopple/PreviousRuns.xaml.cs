@@ -1,4 +1,5 @@
 using Databasekopple.Data;
+using Databasekopple.Models;
 using Databasekopple.ViewModels;
 
 namespace Databasekopple;
@@ -18,7 +19,7 @@ public partial class PreviousRuns : ContentPage
 
         runsList.ItemsSource = sortedSessions;
 
-        
+
     }
 
     public void LoadRuns()
@@ -80,5 +81,22 @@ public partial class PreviousRuns : ContentPage
         // Calls the LoadRuns method (assuming it exists) to perform additional actions related to loading runs
         LoadRuns();
     }
+
+    private void OnRunSelected(object sender, SelectionChangedEventArgs e)
+    {
+        if (e.CurrentSelection.FirstOrDefault() is Run selectedRun)
+        {
+            // Log a message to check if the method is being called
+            Console.WriteLine($"OnRunSelected called. Selected Run: {selectedRun}");
+
+            // Navigate to the UpdateRun page with the selected run
+            Navigation.PushAsync(new UpdateRun(Navigation, selectedRun));
+
+            // Clear the selection
+            ((CollectionView)sender).SelectedItem = null;
+        }
+    }
+
+
 
 }

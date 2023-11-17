@@ -5,7 +5,7 @@
              Title="PreviousRuns">
     <ScrollView>
         <VerticalStackLayout>
-            <CollectionView x:Name="runsList">
+            <CollectionView x:Name="runsList" SelectionChanged="OnRunSelected">
                 <CollectionView.Header>
                     <Grid>
                         <Grid.RowDefinitions>
